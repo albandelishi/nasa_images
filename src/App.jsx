@@ -9,7 +9,7 @@ function App() {
     <>
       <Routes>
         <Route path={"/"} element={<Search />}></Route>
-        <Route path={"/show"} element={<Show />}></Route>
+        <Route path={"/show/:id"} element={<Show />}></Route>
       </Routes>
     </>
   );

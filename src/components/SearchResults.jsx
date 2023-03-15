@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import Card from "./cards/Card";
 export default function SearchResults({ items }) {
   return (
@@ -9,19 +9,21 @@ export default function SearchResults({ items }) {
             {(!items || items.length === 0) && "No results"}
             {items &&
               items.map((item, index) => {
+                console.log(item);
                 return (
-                  <Card
-                    key={index}
-                    imgSource={item.links[0].href}
-                    imgAlt={item.data[0].title}
-                    title={item.data[0].title}
-                    location={item.data[0].location ?? ""}
-                    photographerName={
-                      item.data[0].photographer ??
-                      item.data[0].secondary_creator ??
-                      ""
-                    }
-                  />
+                  <Link to={`/show/${item.data[0].nasa_id}`} key={index}>
+                    <Card
+                      imgSource={item.links[0].href}
+                      imgAlt={item.data[0].title}
+                      title={item.data[0].title}
+                      location={item.data[0].location ?? ""}
+                      photographerName={
+                        item.data[0].photographer ??
+                        item.data[0].secondary_creator ??
+                        ""
+                      }
+                    />
+                  </Link>
                 );
               })}
           </div>
