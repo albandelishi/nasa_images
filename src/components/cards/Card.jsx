@@ -22,10 +22,10 @@ export default function Card({
             </div>
             <div className="mb-3">
               <h2 className="text-uppercase text-center sub-header">
-                {location}
+                {location && `Location: ${location}`}
               </h2>
               <h2 className="text-uppercase text-center sub-header">
-                {photographerName}
+                {photographerName && `Photographer: ${photographerName}`}
               </h2>
             </div>
           </div>

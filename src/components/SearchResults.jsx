@@ -15,8 +15,12 @@ export default function SearchResults({ items }) {
                     imgSource={item.links[0].href}
                     imgAlt={item.data[0].title}
                     title={item.data[0].title}
-                    location={item.data[0].center}
-                    photographerName={item.data[0].secondary_creator}
+                    location={item.data[0].location ?? ""}
+                    photographerName={
+                      item.data[0].photographer ??
+                      item.data[0].secondary_creator ??
+                      ""
+                    }
                   />
                 );
               })}

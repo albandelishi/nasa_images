@@ -6,8 +6,8 @@
 }
 
 .img-hover-zoom--colorize img {
-    width: 150px;
-    height: auto;
+    width: auto;
+    height: 150px;
     margin-top: 20px;
     padding: 1px;
     transition: transform .5s;
