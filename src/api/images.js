@@ -2,7 +2,6 @@ import api from "./axiosInterceptor";
 
 export const getImages = async (search, startYear, endYear) => {
     try {
-      console.log({ search, startYear, endYear });
    const querySearch = search ? `&q=${search}` : "";
    const queryStartYear = startYear ? `&q=${startYear}` : "";
    const queryEndYear = endYear ? `&q=${endYear}` : "";
