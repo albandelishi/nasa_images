@@ -15,3 +15,12 @@ export const getImages = async (search, startYear, endYear) => {
     return error.message;
   }
 };
+
+export const fetchImages = async (search, startYear, endYear) => {
+    const response = await getImages(search, startYear, endYear);
+    if (response.status === 200) {
+     return response.data.collection.items;
+    } else {
+      alert(response);
+    }
+  };

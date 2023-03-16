@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Search from "./pages/Search";
 import Show from "./pages/Show";
 import "bootstrap/dist/css/bootstrap.min.css";

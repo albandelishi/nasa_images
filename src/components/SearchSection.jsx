@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Formik, Field, Form } from "formik";
 import DatePicker from "react-datepicker";
 import { searchForm } from "../utils/validation/yupValidation";
@@ -6,25 +6,21 @@ import "react-datepicker/dist/react-datepicker.css";
 import Alert from "./alert/Alert";
 import SearchResults from "./SearchResults";
 
-import { getImages } from "../api/images";
+import { fetchImages } from "../api/images";
 export default function SearchSection() {
   const [items, setItems] = useState([]);
   const [startYear, setStartYear] = useState(new Date());
   const [endYear, setEndYear] = useState(new Date());
 
-  const handleSubmit = async (values, startYear, endYear) => {
-    const { search } = values;
-    const response = await getImages(
-      search,
-      startYear.getFullYear(),
-      endYear.getFullYear()
-    );
-    if (response.status === 200) {
-      setItems(response.data.collection.items);
-    } else {
-      alert(response);
-    }
+  const handleSubmit = async (search, startYear, endYear) => {
+    const data = await fetchImages(search, startYear, endYear);
+    if (data) setItems(data);
   };
+
+  useEffect(() => {
+    fetchImages().then((data) => setItems(data));
+  }, []);
+
   return (
     <>
       <section className="bg-dark py-5">
@@ -34,8 +30,8 @@ export default function SearchSection() {
               <Formik
                 initialValues={{ search: "", startYear: "", endYear: "" }}
                 validationSchema={searchForm}
-                onSubmit={async (values) => {
-                  handleSubmit(values, startYear, endYear);
+                onSubmit={async ({ search }) => {
+                  handleSubmit(search, startYear, endYear);
                 }}>
                 {({ errors, touched }) => (
                   <Form>
