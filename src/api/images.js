@@ -7,7 +7,7 @@ export const getImages = async (search, startYear, endYear) => {
    const queryEndYear = endYear ? `&q=${endYear}` : "";
 
   const response = await api.get(
-    `search?page_size=6&media_type=image${querySearch}${queryStartYear}${queryEndYear}`
+    `/search?page_size=10&media_type=image${querySearch}${queryStartYear}${queryEndYear}`
   );
   return response;
   } catch (error) {
@@ -23,3 +23,4 @@ export const fetchImages = async (search, startYear, endYear) => {
       alert(response);
     }
   };
+

@@ -11,6 +11,7 @@ export default function SearchResults({ items }) {
                 return (
                   <Card
                     key={index}
+                    item={item}
                     imgSource={item.links[0].href}
                     imgAlt={item.data[0].title}
                     title={item.data[0].title}

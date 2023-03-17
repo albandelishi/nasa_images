@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import "./card.css";
 export default function Card({
+  item,
   imgSource,
   imgAlt,
   title,
@@ -9,11 +10,14 @@ export default function Card({
   photographerName,
   nasaID,
 }) {
+  const handleLinkClick = () => {
+    localStorage.setItem("item", JSON.stringify(item));
+  };
   return (
     <>
       <div className="col">
         <div className="card h-100 shadow-sm">
-          <Link to={`/show/${nasaID}`}>
+          <Link to={`/show/${nasaID}`} onClick={handleLinkClick}>
             <div className="text-center">
               <div className="img-hover-zoom img-hover-zoom--colorize">
                 <img className="shadow" src={imgSource} alt={imgAlt} />

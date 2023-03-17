@@ -24,16 +24,6 @@ export default function Navbar() {
                   Search
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink
-                  end
-                  to={"/show"}
-                  className={({ isActive }) =>
-                    isActive ? "nav-link active" : "nav-link"
-                  }>
-                  Show
-                </NavLink>
-              </li>
             </ul>
           </div>
         </div>
