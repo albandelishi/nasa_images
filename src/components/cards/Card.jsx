@@ -26,7 +26,7 @@ export default function Card({
             <div className="card-body">
               <div className="clearfix mb-3"></div>
               <div className="my-2 text-center">
-                <h1>{title}</h1>
+                <h2>{title}</h2>
               </div>
               <div className="mb-3">
                 <h2 className="text-uppercase text-center sub-header">

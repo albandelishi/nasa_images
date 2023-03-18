@@ -1,4 +1,0 @@
-GET https://images-api.nasa.gov/search?q=orion&media_type=image
-
-
-GET https://images-api.nasa.gov/captions/PIA16573

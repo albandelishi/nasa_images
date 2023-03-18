@@ -1,25 +1,55 @@
 import { useState, useEffect } from "react";
 import { Formik, Field, Form } from "formik";
-import DatePicker from "react-datepicker";
-import { searchForm } from "../utils/validation/yupValidation";
-import "react-datepicker/dist/react-datepicker.css";
+
 import Alert from "./alert/Alert";
 import SearchResults from "./SearchResults";
+import DatePickerFormik from "./input/DatePickerFormik";
 
 import { fetchImages } from "../api/images";
+
+import { searchForm } from "../utils/validation/yupValidation";
+
+const PAGE_SIZE = 12;
+const TOTAL_PAGES = Math.ceil(100 / PAGE_SIZE);
 export default function SearchSection() {
   const [items, setItems] = useState([]);
-  const [startYear, setStartYear] = useState(new Date());
-  const [endYear, setEndYear] = useState(new Date());
 
-  const handleSubmit = async (search, startYear, endYear) => {
-    const data = await fetchImages(search, startYear, endYear);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (
+    PAGE_SIZE,
+    currentPage,
+    search,
+    startYear,
+    endYear
+  ) => {
+    const data = await fetchImages(
+      PAGE_SIZE,
+      currentPage,
+      search,
+      startYear,
+      endYear
+    );
     if (data) setItems(data);
   };
 
   useEffect(() => {
-    fetchImages().then((data) => setItems(data));
-  }, []);
+    setLoading(true);
+    fetchImages(PAGE_SIZE, currentPage).then((data) => {
+      setItems(data);
+    });
+    setLoading(false);
+  }, [currentPage]);
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
 
   return (
     <>
@@ -30,8 +60,14 @@ export default function SearchSection() {
               <Formik
                 initialValues={{ search: "", startYear: "", endYear: "" }}
                 validationSchema={searchForm}
-                onSubmit={async ({ search }) => {
-                  handleSubmit(search, startYear, endYear);
+                onSubmit={async ({ search, startYear, endYear }) => {
+                  handleSubmit(
+                    PAGE_SIZE,
+                    currentPage,
+                    search,
+                    startYear,
+                    endYear
+                  );
                 }}>
                 {({ errors, touched }) => (
                   <Form>
@@ -53,37 +89,11 @@ export default function SearchSection() {
                     <div className="row text-white">
                       <div className="col-6">
                         <label htmlFor="startYear">Start Year</label>
-                        <DatePicker
-                          selected={startYear}
-                          name="startYear"
-                          id="startYear"
-                          className="form-control"
-                          onChange={(date) => {
-                            setStartYear(date);
-                          }}
-                          showYearPicker
-                          dateFormat="yyyy"
-                        />
-                        {errors.startYear && touched.startYear && (
-                          <Alert message={errors.startYear} />
-                        )}
+                        <DatePickerFormik name="startYear" showYearPicker />
                       </div>
                       <div className="col-6">
                         <label htmlFor="endYear">End Year</label>
-                        <DatePicker
-                          selected={endYear}
-                          name="endYear"
-                          id="endYear"
-                          className="form-control"
-                          onChange={(date) => {
-                            setEndYear(date);
-                          }}
-                          showYearPicker
-                          dateFormat="yyyy"
-                        />
-                        {errors.endYear && touched.endYear && (
-                          <Alert message={errors.endYear} />
-                        )}
+                        <DatePickerFormik name="endYear" showYearPicker />
                       </div>
                     </div>
                     <div className="d-flex justify-content-center mt-3">
@@ -98,8 +108,26 @@ export default function SearchSection() {
           </div>
         </div>
       </section>
-
+      {loading && (
+        <div className="d-flex justify-content-center">
+          <div className="spinner-border" role="status"></div>
+        </div>
+      )}
       <SearchResults items={items} />
+      <div className="d-flex justify-content-center">
+        <button
+          className="btn btn-primary me-5"
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}>
+          Previous
+        </button>
+        <button
+          className="btn btn-primary"
+          onClick={handleNextPage}
+          disabled={currentPage == TOTAL_PAGES}>
+          Next
+        </button>
+      </div>
     </>
   );
 }
