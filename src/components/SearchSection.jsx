@@ -87,11 +87,11 @@ export default function SearchSection() {
                       )}
                     </div>
                     <div className="row text-white">
-                      <div className="col-6">
+                      <div className="col-sm-12 col-md-6 mb-3">
                         <label htmlFor="startYear">Start Year</label>
                         <DatePickerFormik name="startYear" showYearPicker />
                       </div>
-                      <div className="col-6">
+                      <div className="col-sm-12 col-md-6">
                         <label htmlFor="endYear">End Year</label>
                         <DatePickerFormik name="endYear" showYearPicker />
                       </div>

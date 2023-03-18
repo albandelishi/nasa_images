@@ -12,7 +12,7 @@ export default function Navbar() {
               alt=""
             />
           </a>
-          <div className="navbar-collapse" id="navbarSupportedContent">
+          <div className="me-auto" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink
