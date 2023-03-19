@@ -4,6 +4,7 @@ import { Formik, Field, Form } from "formik";
 import Alert from "./alert/Alert";
 import SearchResults from "./SearchResults";
 import DatePickerFormik from "./input/DatePickerFormik";
+import Pagination from "./pagination/Pagination";
 
 import { fetchImages } from "../api/images";
 
@@ -118,20 +119,12 @@ export default function SearchSection() {
         </div>
       )}
       <SearchResults items={items} />
-      <div className="d-flex justify-content-center">
-        <button
-          className="btn btn-primary me-5"
-          onClick={handlePrevPage}
-          disabled={currentPage === 1}>
-          Previous
-        </button>
-        <button
-          className="btn btn-primary"
-          onClick={handleNextPage}
-          disabled={currentPage == TOTAL_PAGES}>
-          Next
-        </button>
-      </div>
+      <Pagination
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
+        currentPage={currentPage}
+        TOTAL_PAGES={TOTAL_PAGES}
+      />
     </>
   );
 }
