@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Field, Form } from "formik";
 
 import Alert from "./alert/Alert";
@@ -81,6 +81,7 @@ export default function SearchSection() {
                         className="form-control"
                         placeholder="Orion"
                         type="text"
+                        data-testid="input-search"
                       />
                       {errors.search && touched.search && (
                         <Alert message={errors.search} />
@@ -97,7 +98,10 @@ export default function SearchSection() {
                       </div>
                     </div>
                     <div className="d-flex justify-content-center mt-3">
-                      <button className="btn btn-primary btn-lg " type="submit">
+                      <button
+                        className="btn btn-primary btn-lg "
+                        type="submit"
+                        data-testid="submit-form">
                         Search
                       </button>
                     </div>

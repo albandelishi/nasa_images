@@ -1,3 +1,4 @@
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Search from "./pages/Search";
 import Show from "./pages/Show";
